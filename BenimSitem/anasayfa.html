@@ -1,0 +1,1289 @@
+﻿<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Helin Studio — Modern Web Çözümleri</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --mor: #7c4dff; /* mor */
+            --pembe: #ff6ec7; /* pembe */
+            --mavi: #5ec5ff; /* mavi */
+            --lacivert: #0c1b4d; /* lacivert */
+            --gece: #0b1020; /* koyu arka plan */
+            --acik: #f7f9fc; /* açık arka plan */
+            --beyaz: #ffffff;
+            --card: rgba(255,255,255,0.08);
+            --glass: rgba(255,255,255,0.6);
+            --border: rgba(255,255,255,0.18);
+            --shadow: 0 10px 30px rgba(12, 27, 77, 0.25);
+            --radius: 18px;
+            --radius-lg: 26px;
+            --grad-hero: radial-gradient(1200px 800px at 10% -10%, rgba(124,77,255,.35), transparent 60%), radial-gradient(800px 600px at 90% 0%, rgba(255,110,199,.30), transparent 60%), radial-gradient(900px 700px at 50% 120%, rgba(94,197,255,.30), transparent 60%), linear-gradient(180deg, #0a0f2a 0%, #0c1334 60%, #101944 100%);
+            --grad-cta: linear-gradient(135deg, var(--pembe), var(--mor));
+            --grad-stroke: linear-gradient(135deg, rgba(255,110,199,.6), rgba(94,197,255,.6));
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html, body {
+            height: 100%;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Poppins', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+            color: #e8ecf7;
+            background: var(--gece);
+            overflow-x: hidden;
+        }
+
+        /* ---------- Header ---------- */
+        .header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: saturate(140%) blur(8px);
+            background: linear-gradient(180deg, rgba(12,19,52,0.85), rgba(12,19,52,0.55));
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 14px 22px;
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 700;
+            letter-spacing: .2px;
+        }
+
+        .logo {
+            width: 38px;
+            height: 38px;
+            border-radius: 12px;
+            position: relative;
+            isolation: isolate;
+            background: var(--grad-cta); /* Mor-pembe çerçeve */
+            box-shadow: 0 6px 18px rgba(255,110,199,.35);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Poppins', sans-serif; /* yazı tipi */
+            font-weight: 700; /* kalın */
+            color: #fff; /* beyaz yazı */
+            font-size: 16px; /* büyüklük ayarı */
+        }
+
+
+            .logo::after {
+                content: "";
+                position: absolute;
+                inset: 2px; /* iç boşluk bırakıyor, çerçeve görünümü için */
+                border-radius: 10px;
+                background: linear-gradient(180deg, rgba(255,255,255,.25), rgba(255,255,255,.02));
+                z-index: 1;
+            }
+
+            
+
+        .menu {
+            display: flex;
+            justify-content: center;
+            gap: 18px;
+        }
+
+            .menu a {
+                color: #dfe7ff;
+                text-decoration: none;
+                font-weight: 500;
+                padding: 10px 12px;
+                border-radius: 10px;
+            }
+
+                .menu a:hover {
+                    background: rgba(255,255,255,0.06);
+                }
+
+        .actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn {
+            border: none;
+            cursor: pointer;
+            border-radius: 12px;
+            font-weight: 600;
+            padding: 10px 16px;
+        }
+
+            .btn.ghost {
+                background: rgba(255,255,255,0.08);
+                color: #fff;
+                border: 1px solid rgba(255,255,255,0.10);
+            }
+
+            .btn.primary {
+                background: var(--grad-cta);
+                color: #0a0f2a;
+                box-shadow: 0 10px 24px rgba(124,77,255,.35);
+            }
+
+        .hamb {
+            display: none;
+            color: #fff;
+            font-size: 22px;
+        }
+
+        @media (max-width: 900px) {
+            .menu {
+                display: none;
+            }
+
+            .hamb {
+                display: block;
+                justify-self: end;
+            }
+
+            .nav {
+                grid-template-columns: auto 1fr auto;
+            }
+        }
+
+        .mobile-drawer {
+            position: fixed;
+            inset: 0 0 auto auto;
+            top: 64px;
+            width: 100%;
+            background: rgba(12,19,52,.98);
+            border-top: 1px solid rgba(255,255,255,.08);
+            display: none;
+        }
+
+            .mobile-drawer.open {
+                display: block;
+            }
+
+        .mobile-menu {
+            display: grid;
+            padding: 14px 22px;
+            gap: 6px;
+        }
+
+            .mobile-menu a {
+                color: #dfe7ff;
+                text-decoration: none;
+                padding: 14px;
+                border-radius: 12px;
+                background: rgba(255,255,255,.06);
+            }
+
+        /* ---------- Hero ---------- */
+        .hero {
+            background: var(--grad-hero);
+            position: relative;
+            overflow: clip;
+        }
+
+        .hero-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: clamp(56px, 8vw, 120px) 22px;
+            display: grid;
+            grid-template-columns: 1.15fr 0.85fr;
+            gap: 28px;
+            align-items: center;
+        }
+
+        .kicker {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 12px;
+            border-radius: 999px;
+            background: rgba(255,255,255,.08);
+            border: 1px solid rgba(255,255,255,.15);
+            font-weight: 600;
+            font-size: .9rem;
+        }
+
+            .kicker i {
+                color: var(--mavi);
+            }
+
+        .hero h1 {
+            font-size: clamp(34px, 5vw, 56px);
+            line-height: 1.08;
+            margin: 16px 0 12px;
+            letter-spacing: .2px;
+        }
+
+        .hero p.lead {
+            color: #cfd9ff;
+            font-size: clamp(16px, 2.2vw, 18px);
+            opacity: .92;
+        }
+
+        .cta-row {
+            display: flex;
+            gap: 12px;
+            margin-top: 22px;
+            flex-wrap: wrap;
+        }
+
+        .cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 18px;
+            border-radius: 14px;
+            font-weight: 700;
+            border: 1px solid transparent;
+            text-decoration: none;
+        }
+
+            .cta.primary {
+                background: var(--grad-cta);
+                color: #0b1020;
+                box-shadow: var(--shadow);
+            }
+
+            .cta.secondary {
+                background: rgba(255,255,255,.08);
+                color: #fff;
+                border-color: rgba(255,255,255,.14);
+            }
+
+        .mockup {
+            position: relative;
+        }
+
+        .glass-card {
+            background: linear-gradient(180deg, rgba(255,255,255,.12), rgba(255,255,255,.05));
+            border: 1px solid rgba(255,255,255,.2);
+            box-shadow: var(--shadow);
+            border-radius: var(--radius-lg);
+            padding: 22px;
+            isolation: isolate;
+        }
+
+        .mockup .screen {
+            border-radius: 16px;
+            aspect-ratio: 16/10;
+            background: linear-gradient(135deg, #0f1b4f, #15256a);
+            border: 1px solid rgba(255,255,255,.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .code {
+            position: absolute;
+            inset: 0;
+            padding: 18px;
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+            font-size: 12.5px;
+            line-height: 1.5;
+            color: #d9e1ff;
+            opacity: .9;
+        }
+
+        .tag {
+            color: #ffb0df;
+        }
+
+        .attr {
+            color: #8ad7ff;
+        }
+
+     
+        @media (max-width:900px) {
+            .hero-inner {
+                grid-template-columns: 1fr;
+            }
+
+            .trust {
+                grid-template-columns: repeat(2,1fr);
+            }
+        }
+
+        /* ---------- Özellikler Grid ---------- */
+        .section {
+            padding: clamp(48px, 7vw, 90px) 22px;
+        }
+
+        .wrap {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section h2 {
+            font-size: clamp(26px, 3.4vw, 36px);
+            margin: 0 0 14px;
+        }
+
+        .section p.sub {
+            color: #cdd7ff;
+            margin: 0 0 26px;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+        }
+
+        .feat {
+            background: rgba(255,255,255,.06);
+            border: 1px solid rgba(255,255,255,.12);
+            border-radius: 18px;
+            padding: 20px;
+            transition: transform .25s ease, box-shadow .25s ease;
+        }
+
+            .feat:hover {
+                transform: translateY(-6px);
+                box-shadow: 0 18px 40px rgba(12,27,77,.35);
+            }
+
+            .feat i {
+                font-size: 22px;
+                padding: 12px;
+                border-radius: 12px;
+                background: rgba(255,255,255,.08);
+                border: 1px solid rgba(255,255,255,.12);
+                color: var(--pembe);
+            }
+
+            .feat h3 {
+                margin: 14px 0 8px;
+                font-size: 18px;
+                letter-spacing: .2px;
+            }
+
+        .chips {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-top: 10px;
+        }
+
+        .chip {
+            font-size: 12px;
+            padding: 6px 10px;
+            border-radius: 999px;
+            background: rgba(124,77,255,.18);
+            color: #e6dcff;
+            border: 1px solid rgba(124,77,255,.28);
+        }
+
+        @media (max-width:900px) {
+            .features {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ---------- Sektör Çözümleri (Paket yerine) ---------- */
+        .industries {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+        }
+
+        .card {
+            position: relative;
+            overflow: hidden;
+            border-radius: 18px;
+            background: linear-gradient(160deg, rgba(124,77,255,.20), rgba(6,16,54,.9));
+            border: 1px solid rgba(255,255,255,.12);
+            min-height: 200px;
+            padding: 18px;
+            transition: transform .25s ease, box-shadow .25s ease;
+        }
+
+            .card:hover {
+                transform: translateY(-6px);
+                box-shadow: 0 18px 40px rgba(124,77,255,.25);
+            }
+
+            .card h4 {
+                margin: 8px 0 6px;
+            }
+
+            .card p {
+                color: #cfd7ff;
+                opacity: .9;
+                font-size: 14px;
+            }
+
+        .ribbon {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: var(--grad-cta);
+            color: #111;
+            padding: 6px 10px;
+            border-radius: 999px;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .tagline {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-top: 12px;
+        }
+
+            .tagline span {
+                font-size: 12px;
+                padding: 6px 10px;
+                border-radius: 999px;
+                background: rgba(255,255,255,.08);
+                border: 1px solid rgba(255,255,255,.16);
+            }
+
+        @media (max-width:900px) {
+            .industries {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ---------- Şablon Galerisi ---------- */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+        }
+
+        .shot {
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,.12);
+            background: linear-gradient(180deg, #0e173e, #0c1b4d);
+            aspect-ratio: 16/10;
+            position: relative;
+        }
+
+            .shot::after {
+                content: "Demo";
+                position: absolute;
+                right: 10px;
+                top: 10px;
+                font-size: 12px;
+                padding: 6px 10px;
+                border-radius: 999px;
+                background: rgba(255,255,255,.08);
+                border: 1px solid rgba(255,255,255,.16);
+            }
+
+            .shot .bar {
+                position: absolute;
+                inset: 0 0 auto 0;
+                height: 36px;
+                background: linear-gradient(180deg, rgba(255,255,255,.12), rgba(255,255,255,0));
+                border-bottom: 1px solid rgba(255,255,255,.1);
+            }
+
+            .shot .dots {
+                display: flex;
+                gap: 6px;
+                padding: 10px;
+            }
+
+        .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #ff8ccf;
+            opacity: .8;
+        }
+
+            .dot:nth-child(2) {
+                background: #7c4dff;
+            }
+
+            .dot:nth-child(3) {
+                background: #5ec5ff;
+            }
+
+        @media (max-width:900px) {
+            .gallery {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ---------- Süreç (3 adım) ---------- */
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(3,1fr);
+            gap: 18px;
+            counter-reset: step;
+        }
+
+        .step {
+            background: rgba(255,255,255,.06);
+            border: 1px solid rgba(255,255,255,.12);
+            border-radius: 18px;
+            padding: 16px;
+            position: relative;
+            transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+        }
+
+            .step:hover {
+                transform: translateY(-6px);
+                box-shadow: 0 18px 40px rgba(12,27,77,.35);
+                border-color: rgba(255,255,255,.22);
+            }
+
+            /* üst sağdaki numara (istersen bırakma) */
+            .step::before {
+                counter-increment: step;
+                content: counter(step);
+                position: absolute;
+                top: 14px;
+                right: 14px;
+                width: 34px;
+                height: 34px;
+                border-radius: 50%;
+                display: grid;
+                place-items: center;
+                background: var(--grad-cta);
+                color: #0b1020;
+                font-weight: 800;
+            }
+
+        /* Görsel alanı */
+        .thumb {
+            position: relative;
+            border-radius: 14px;
+            overflow: hidden;
+            /* gradient kenarlık */
+            padding: 2px;
+            background: linear-gradient(135deg, rgba(255,110,199,.5), rgba(94,197,255,.5));
+            margin-bottom: 12px;
+        }
+
+            .thumb::after {
+                content: "";
+                position: absolute;
+                inset: 0;
+                box-shadow: inset 0 -40px 80px rgba(0,0,0,.12); /* hafif alt gölge */
+                pointer-events: none;
+            }
+
+            .thumb img {
+                display: block;
+                width: 100%;
+                height: 220px; /* kart yüksekliği */
+                object-fit: cover;
+                border-radius: 12px;
+                background: #0e173e; /* görsel yüklenmezse */
+            }
+
+        /* Sol üst mini rozet */
+        .badge {
+            position: absolute;
+            left: 10px;
+            top: 10px;
+            font-size: 12px;
+            font-weight: 700;
+            padding: 6px 10px;
+            border-radius: 999px;
+            background: rgba(0,0,0,.35);
+            color: #fff;
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(255,255,255,.25);
+        }
+
+        /* Metin kısmı */
+        .step-body h3 {
+            margin: 6px 0 6px;
+            font-size: 18px;
+            letter-spacing: .2px;
+        }
+
+        .step-body p {
+            color: #cdd7ff;
+        }
+
+        /* Mobil */
+        @media (max-width:900px) {
+            .steps {
+                grid-template-columns: 1fr;
+            }
+
+            .thumb img {
+                height: 200px;
+            }
+        }
+
+
+       
+
+        /* ---------- CTA Stripe ---------- */
+        .stripe {
+            margin-top: 8px;
+            border-radius: 20px;
+            padding: 24px;
+            background: linear-gradient(135deg, rgba(255,110,199,.18), rgba(124,77,255,.18));
+            border: 1px solid rgba(255,255,255,.18);
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 14px;
+            justify-content: space-between;
+        }
+
+
+        /* ---------- Footer ---------- */
+        footer {
+            border-top: 1px solid rgba(255,255,255,.1);
+            margin-top: 60px;
+            background: linear-gradient(180deg, #0c1334, #0b1020);
+        }
+
+        .foot {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 32px 22px;
+            display: grid;
+            grid-template-columns: 1.2fr repeat(3,1fr);
+            gap: 18px;
+        }
+
+            .foot h5 {
+                margin: 0 0 10px;
+            }
+
+            .foot a {
+                color: #dfe7ff;
+                text-decoration: none;
+                display: block;
+                margin: 6px 0;
+                opacity: .9;
+            }
+
+        .credits {
+            text-align: center;
+            color: #a9b8ff;
+            padding: 14px 22px 28px;
+            font-size: 13px;
+            opacity: .8;
+        }
+
+        @media (max-width:900px) {
+            .foot {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        /* ---------- Little Animations ---------- */
+        .floaty {
+            animation: floaty 6s ease-in-out infinite;
+        }
+
+        @keyframes floaty {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-8px);
+            }
+        }
+
+
+        /* ===== Hepsi Bir Arada Bölümü ===== */
+        .features-hero {
+            position: relative;
+            overflow: clip;
+            background: linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.02));
+            border-top: 1px solid rgba(255,255,255,.06);
+            border-bottom: 1px solid rgba(255,255,255,.06);
+        }
+
+        /* Başlık */
+        .fh-head {
+            text-align: center;
+            margin-bottom: 18px;
+        }
+
+        .fh-kicker {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 12px;
+            border-radius: 999px;
+            background: rgba(255,255,255,.08);
+            border: 1px solid rgba(255,255,255,.15);
+            font-weight: 600;
+            font-size: .9rem;
+        }
+
+        .fh-head h2 {
+            font-size: clamp(26px, 3.4vw, 36px);
+            margin: 12px 0 10px;
+            position: relative;
+        }
+
+            .fh-head h2 span {
+                background: var(--grad-cta);
+                -webkit-background-clip: text;
+                background-clip: text;
+                color: transparent;
+            }
+            /* Başlık altına gradient çizgi */
+            .fh-head h2::after {
+                content: "";
+                display: block;
+                height: 4px;
+                width: 96px;
+                margin: 10px auto 0;
+                border-radius: 999px;
+                background: linear-gradient(135deg, var(--pembe), var(--mavi));
+                opacity: .8;
+            }
+
+        .fh-head .sub {
+            color: #cdd7ff;
+        }
+
+        /* Üstteki ikonlu kapsüller */
+        .pill-cards {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 16px;
+            margin: 18px 0 28px;
+        }
+
+        .pill {
+            background: rgba(255,255,255,.08);
+            border: 1px solid rgba(255,255,255,.14);
+            border-radius: 16px;
+            padding: 18px 16px;
+            text-align: center;
+            box-shadow: 0 8px 26px rgba(12,27,77,.18);
+            transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+        }
+
+            .pill:hover {
+                transform: translateY(-6px);
+                border-color: rgba(255,255,255,.22);
+                box-shadow: 0 18px 40px rgba(12,27,77,.32);
+            }
+
+            .pill i {
+                font-size: 22px;
+                color: var(--mavi);
+                background: rgba(255,255,255,.10);
+                border: 1px solid rgba(255,255,255,.16);
+                width: 44px;
+                height: 44px;
+                display: grid;
+                place-items: center;
+                border-radius: 12px;
+                margin: 2px auto 10px;
+            }
+
+            .pill h4 {
+                margin: 6px 0 6px;
+                font-size: 15px;
+            }
+
+            .pill p {
+                color: #cfd7ff;
+                font-size: 13px;
+            }
+
+        /* Alt: 2 sütun içerik */
+        .fh-grid {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 28px;
+            align-items: center;
+        }
+
+        /* Mockup */
+        .fh-shot {
+            position: relative;
+            border-radius: 18px;
+            padding: 2px;
+            background: linear-gradient(135deg, rgba(255,110,199,.35), rgba(124,77,255,.35));
+            box-shadow: 0 18px 40px rgba(12,27,77,.3);
+            margin-left:-6px;
+        }
+
+            .fh-shot img {
+                display: block;
+                width: 100%;
+                border-radius: 16px;
+                height: clamp(240px, 40vw, 420px);
+                object-fit: cover;
+                background: #0f1b4f;
+                border: 1px solid rgba(255,255,255,.12);
+                transition: transform .35s ease;
+            }
+
+            .fh-shot:hover img {
+                transform: scale(1.02);
+            }
+
+        /* üstte küçük tarayıcı çubuğu */
+        .chrome {
+            position: absolute;
+            left: 14px;
+            top: 10px;
+            display: flex;
+            gap: 6px;
+        }
+
+            .chrome .dot {
+                width: 10px;
+                height: 10px;
+                border-radius: 50%;
+                background: #ff8ccf;
+                box-shadow: 0 0 0 1px rgba(255,255,255,.25) inset;
+            }
+
+                .chrome .dot:nth-child(2) {
+                    background: #7c4dff;
+                }
+
+                .chrome .dot:nth-child(3) {
+                    background: #5ec5ff;
+                }
+
+        /* Metin alanı */
+
+        .fh-copy {
+           
+            align-self: start; /* center yerine start yapıyoruz */
+        }
+
+        .fh-copy p {
+            color: #dbe3ff;
+          
+        }
+
+        .ticks {
+            list-style: none;
+            padding-left: 0;
+            margin: 14px 0 18px;
+        }
+
+            .ticks li {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                margin: 8px 0;
+                color: #cfe0ff;
+            }
+
+            .ticks i {
+                width: 22px;
+                height: 22px;
+                border-radius: 50%;
+                display: grid;
+                place-items: center;
+                background: rgba(255,255,255,.10);
+                border: 1px solid rgba(255,255,255,.16);
+                color: var(--pembe);
+            }
+
+        /* CTA butonları */
+        .features-hero .cta-row {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        /* Arkaplan süsleri */
+        .bg-shape {
+            position: absolute;
+            filter: blur(60px);
+            opacity: .35;
+            z-index: -1;
+        }
+
+            .bg-shape.one {
+                width: 420px;
+                height: 420px;
+                left: -120px;
+                top: -80px;
+                background: radial-gradient(closest-side, rgba(124,77,255,.6), transparent);
+            }
+
+            .bg-shape.two {
+                width: 460px;
+                height: 460px;
+                right: -140px;
+                bottom: -120px;
+                background: radial-gradient(closest-side, rgba(94,197,255,.5), transparent);
+            }
+
+        /* Responsive */
+        @media (max-width:1100px) {
+            .pill-cards {
+                grid-template-columns: repeat(3,1fr);
+            }
+        }
+
+        @media (max-width:900px) {
+            .pill-cards {
+                grid-template-columns: repeat(2,1fr);
+            }
+
+            .fh-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .fh-shot img {
+                height: 260px;
+            }
+        }
+
+
+
+        /* ===== Garanti CTA Bandı ===== */
+        .guarantee-strip {
+            background: linear-gradient(90deg, #207CF2, #5167E7 45%, #7A4DE8 75%, #B055E0);
+            color: #fff;
+            padding: 40px 20px; /* dikey alan azaltıldı */
+        }
+
+        .guarantee-wrap {
+            max-width: 900px; /* genişliği sınırladık */
+            margin: 0 auto;
+            text-align: center;
+        }
+
+            .guarantee-wrap h2 {
+                font-size: clamp(24px, 3.2vw, 36px);
+                margin: 0 0 10px;
+            }
+
+            .guarantee-wrap p {
+                margin: 0 0 20px;
+                font-size: clamp(14px, 2vw, 16px);
+                color: rgba(255,255,255,.92);
+            }
+
+        .cta-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 24px;
+            background: #fff;
+            color: #1b244a;
+            text-decoration: none;
+            border-radius: 999px;
+            font-weight: 700;
+            transition: transform .15s ease, box-shadow .2s ease;
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="nav">
+            <div class="brand">
+                <div class="logo">HS</div>
+
+
+                <span>Helin Studio</span>
+            </div>
+            <nav class="menu">
+                <a href="#ozellikler">AnaSayfa</a>
+                <a href="#cozumler">Hazır Web Siteleri</a>
+                <a href="#galeri">Özellikler</a>
+                <a href="#surec">Paketler/Fiyatlar</a>
+                <a href="#sss">Referanslar</a>
+            </nav>
+            <div class="actions">
+
+                <a class="btn primary" href="#iletisim">Müşteri Girişi</a>
+                <button class="hamb" aria-label="Menüyü Aç/Kapat"><i class="fa-solid fa-bars"></i></button>
+            </div>
+        </div>
+        <div class="mobile-drawer" id="drawer">
+            <div class="mobile-menu">
+                <a href="#ozellikler">AnaSayfa</a>
+                <a href="#cozumler">Hazır Web Siteleri</a>
+                <a href="#galeri">Özellikler</a>
+                <a href="#surec">Paketler/Fiyatlar</a>
+                <a href="#sss">Referanslar</a>
+             
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="hero-inner">
+            <div>
+                <span class="kicker"><i class="fa-solid fa-sparkles"></i> Mor • Pembe • Mavi • Lacivert</span>
+                <h1>Neon Pastel Tonlarında <br />Şık ve Hızlı Web Çözümleri</h1>
+                <p class="lead">Hazır şablon + güvenli altyapı + içerik kurulumu. Markanıza özel modern tasarım ve kusursuz mobil deneyim ile hızlıca yayına çıkın.</p>
+                <div class="cta-row">
+                    <a class="cta primary" href="#cozumler"><i class="fa-solid fa-rocket"></i> Hemen Başla</a>
+                    <a class="cta secondary" href="#galeri"><i class="fa-solid fa-images"></i> Şablonları Gör</a>
+                </div>
+            </div>
+            <div class="mockup floaty">
+                <div class="glass-card">
+                    <div class="screen">
+                        <pre class="code">&lt;<span class="tag">section</span> <span class="attr">class</span>="hero"&gt;
+  Neon pastel arayüz 🔮
+  Hızlı yayın ⚡
+  SEO + Erişilebilirlik ♿
+&lt;/<span class="tag">section</span>&gt;</pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </section>
+
+    <!-- Özellikler -->
+    <section class="section" id="ozellikler">
+        <div class="wrap">
+            <h2>Öne Çıkan Özellikler</h2>
+            <p class="sub">Modern tasarım dili, sürdürülebilir altyapı ve içerik odaklı geliştirme.</p>
+            <div class="features">
+                <div class="feat">
+                    <i class="fa-solid fa-paintbrush"></i>
+                    <h3>Modern UI</h3>
+                    <p>Neon pastel palet, yumuşak gölgeler ve cam efekti ile şık görünüm.</p>
+                    <div class="chips">
+                        <span class="chip">Glassmorphism</span>
+                        <span class="chip">Responsive</span>
+                        <span class="chip">İkon Seti</span>
+                    </div>
+                </div>
+                <div class="feat">
+                    <i class="fa-solid fa-lock"></i>
+                    <h3>Güvenli Altyapı</h3>
+                    <p>SSL, yedekleme, güvenlik duvarı ve güncel yazılım bileşenleri.</p>
+                    <div class="chips">
+                        <span class="chip">SSL</span>
+                        <span class="chip">Backup</span>
+                        <span class="chip">WAF</span>
+                    </div>
+                </div>
+                <div class="feat">
+                    <i class="fa-solid fa-magnifying-glass-chart"></i>
+                    <h3>SEO & Analitik</h3>
+                    <p>H1–H3 hiyerarşisi, meta/OG etiketleri ve analitik entegrasyonu.</p>
+                    <div class="chips">
+                        <span class="chip">Schema.org</span>
+                        <span class="chip">OG Tags</span>
+                        <span class="chip">GTM</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+
+
+    <!-- Hepsi Bir Arada Bölümü -->
+    <section class="section features-hero" id="hepsi-bir-arada">
+        <div class="wrap">
+
+            <!-- Başlık (en üstte) -->
+            <header class="fh-head">
+                <span class="fh-kicker"><i class="fa-solid fa-grid-2"></i> Tüm Modüller Tek Pakette</span>
+                <h2>Hepsi Bir Arada <span>Hazır Web</span> Çözümleri</h2>
+                <p class="sub">Modern tasarım, güçlü altyapı ve kolay yönetim paneliyle kısa sürede yayına çıkın.</p>
+            </header>
+
+            <!-- Üst: ikonlu kartlar -->
+            <div class="pill-cards">
+                <article class="pill">
+                    <i class="fa-solid fa-envelope"></i>
+                    <h4>E-posta Hizmetleri</h4>
+                    <p>Kurumsal e-posta adreslerinizle profesyonel iletişim.</p>
+                </article>
+                <article class="pill">
+                    <i class="fa-solid fa-server"></i>
+                    <h4>Sunucu Hizmetleri</h4>
+                    <p>TR merkezli güçlü altyapı ile kesintisiz yayın.</p>
+                </article>
+                <article class="pill">
+                    <i class="fa-solid fa-lock"></i>
+                    <h4>SSL Sertifikası</h4>
+                    <p>Güvenli veri iletimi ve ziyaretçi güveni.</p>
+                </article>
+                <article class="pill">
+                    <i class="fa-solid fa-rotate"></i>
+                    <h4>Yazılım Güncellemeleri</h4>
+                    <p>Her zaman güncel ve güvenli kalın.</p>
+                </article>
+                <article class="pill">
+                    <i class="fa-solid fa-headset"></i>
+                    <h4>Destek</h4>
+                    <p>Ulaşılabilir ve hızlı destek ekibi.</p>
+                </article>
+            </div>
+
+            <!-- Alt: 2 sütun içerik -->
+            <div class="fh-grid">
+                <figure class="fh-shot">
+                    <img src="resim/siteörnegi.png" alt="Helin Studio web şablon önizleme">
+                    <div class="chrome"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+                </figure>
+
+                <div class="fh-copy">
+                    <p>Hazır web çözümlerimizle <strong>tasarım</strong>, <strong>güvenlik</strong> ve <strong>performansı</strong> tek pakette sunuyoruz. İçeriklerinizi kolayca yönetin, SEO ve analitik entegrasyonlarıyla büyümeyi hızlandırın.</p>
+                    <ul class="ticks">
+                        <li><i class="fa-solid fa-check"></i> Tam mobil uyum ve yüksek hız</li>
+                        <li><i class="fa-solid fa-check"></i> SSL, yedekleme ve güvenlik katmanları</li>
+                        <li><i class="fa-solid fa-check"></i> Çok dilli yapı ve blog modülü</li>
+                    </ul>
+                    <div class="cta-row">
+                        <a class="cta primary" href="#iletisim"><i class="fa-solid fa-paper-plane"></i> Fiyatlar</a>
+                        <a class="cta secondary" href="#galeri"><i class="fa-solid fa-images"></i> Bize Ulaşın</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- arka plan süsleri -->
+        <div class="bg-shape one"></div>
+        <div class="bg-shape two"></div>
+    </section>
+
+
+    <!-- Garanti CTA Bandı -->
+    <section class="section guarantee-strip" id="garanti">
+        <div class="guarantee-wrap">
+            <h2>Memnun Kalmazsanız İade Garantili!</h2>
+            <p>Hazır web sitesi satın aldığınızda memnun kalmazsanız, <strong>7 gün</strong> içinde iade edebilirsiniz.</p>
+            <a class="cta-pill" href="#detaylar">
+                <i class="fa-solid fa-info-circle"></i> Detaylar
+            </a>
+        </div>
+
+        <!-- Üstte yumuşak dekor (opsiyonel) -->
+        <div class="guarantee-wave"></div>
+    </section>
+
+
+
+
+
+    <!-- Süreç -->
+    <section class="section" id="surec">
+        <div class="wrap">
+            <h2>3 Adımda Yayında</h2>
+            <p class="sub">Hızlı kurulum ve net iletişim. Zamanını tasarruf et.</p>
+
+            <div class="steps">
+                <article class="step">
+                    <figure class="thumb">
+                        <img src="resim/1.adım.png" alt="Keşif & Tasarım">
+                        <span class="badge">1. Adım</span>
+                    </figure>
+                    <div class="step-body">
+                        <h3>Keşif & Tasarım</h3>
+                        <p>İhtiyaç listesi, renk/ton, tipografi ve site haritası belirlenir.</p>
+                    </div>
+                </article>
+
+                <article class="step">
+                    <figure class="thumb">
+                        <img src="resim/2.adım.png" alt="Kurulum & İçerik">
+                        <span class="badge">2. Adım</span>
+                    </figure>
+                    <div class="step-body">
+                        <h3>Kurulum & İçerik</h3>
+                        <p>Şablon kurulumu, sayfa yerleşimleri, görsel ve metin girişleri.</p>
+                    </div>
+                </article>
+
+                <article class="step">
+                    <figure class="thumb">
+                        <img src="resim/3.adım.png" alt="Yayın & Optimize">
+                        <span class="badge">3. Adım</span>
+                    </figure>
+                    <div class="step-body">
+                        <h3>Yayın & Optimize</h3>
+                        <p>SSL, domain, temel SEO & analitik ve performans düzenlemeleri.</p>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+
+
+
+
+
+
+    <!-- Footer -->
+    <footer>
+        <div class="foot">
+            <div>
+                <div class="brand" style="margin-bottom:8px;">
+                    <div class="logo"></div>
+                    <strong>Helin Studio</strong>
+                </div>
+                <p style="color:#b9c7ff; opacity:.9;">Neon pastel paletle modern, erişilebilir ve hızlı web deneyimleri tasarlıyorum.</p>
+            </div>
+            <div>
+                <h5>Sayfalar</h5>
+                <a href="#ozellikler">Özellikler</a>
+                <a href="#cozumler">Çözümler</a>
+                <a href="#galeri">Şablonlar</a>
+            </div>
+            <div>
+                <h5>Kaynaklar</h5>
+                <a href="#sss">SSS</a>
+                <a href="#">Gizlilik</a>
+                <a href="#">KVKK</a>
+            </div>
+            <div>
+                <h5>İletişim</h5>
+                <a href="#iletisim">Form</a>
+                <a href="#">Instagram</a>
+                <a href="#">LinkedIn</a>
+            </div>
+        </div>
+        <div class="credits">© 2025 Helin Studio — Tüm hakları saklıdır.</div>
+    </footer>
+
+    <script>
+        // Mobile drawer
+        const hamb = document.querySelector('.hamb');
+        const drawer = document.getElementById('drawer');
+        hamb?.addEventListener('click', () => drawer.classList.toggle('open'));
+
+        // FAQ accordion
+        document.querySelectorAll('.qa .q').forEach(q => {
+            q.addEventListener('click', () => q.parentElement.classList.toggle('open'));
+        });
+    </script>
+</body>
+</html>
